@@ -1,70 +1,132 @@
-# Getting Started with Create React App
+# Lost and Found Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application designed to connect people who have lost personal belongings with individuals who have found them. The platform simplifies reporting, searching, and managing lost items within a community or organization.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Purpose
+The main goal of this application is to reduce the stress and friction of searching for misplaced items. Instead of relying on physical bulletin boards or fragmented social media posts, users have a centralized platform to report lost items or log found belongings for quick matching.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 👥 Target Audience & Target Users
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* **General Users / Community Members:** Anyone who has lost or found an item and wants to quickly log a report or search existing listings.
+* **Campus & Organization Administrators:** Staff or managers who oversee lost-and-found desks to manage incoming inventory, verify claims, and coordinate returns.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🏗 System Architecture
 
-### `npm run build`
+The project follows a standard **Client-Server Architecture** decoupled into a frontend single-page application (SPA) and a backend REST API.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
++-------------------------------------------------------+
+|                    React Frontend                     |
+|            (React Hooks, Axios / Fetch)               |
++-------------------------------------------------------+
+|
+| HTTP / REST API Requests
+v
++-------------------------------------------------------+
+|                  Spring Boot Backend                  |
+|  [ Controller Layer -> Service Layer -> Repository ]  |
++-------------------------------------------------------+
+|
+| JPA / Hibernate / JDBC
+v
++-------------------------------------------------------+
+|                    MySQL Database                     |
+|                   (lostandfound_db)                   |
++-------------------------------------------------------+
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🗄 Database Schema
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The application utilizes MySQL (`lostandfound_db`) managed via phpMyAdmin. Below is the main entity schema used to track lost and found records:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `items` Table
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| Column Name   | Data Type     | Constraints                        | Description                                 |
+| :------------ | :------------ | :--------------------------------- | :------------------------------------------ |
+| `id`          | `BIGINT`      | `PRIMARY KEY`, `AUTO_INCREMENT`    | Unique identifier for each record          |
+| `title`       | `VARCHAR(255)`| `NOT NULL`                         | Item name (e.g., ID Card, Keys, Phone)      |
+| `description` | `TEXT`        | `NOT NULL`                         | Detailed description of the item            |
+| `location`    | `VARCHAR(255)`| `NOT NULL`                         | Location where item was lost/found          |
+| `contact_info`| `VARCHAR(255)`| `NOT NULL`                         | Contact details of the reporter             |
+| `status`      | `VARCHAR(50)` | `NOT NULL`                         | Record status: `LOST`, `FOUND`, `RESOLVED`  |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 📁 Repository Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+lostfound/
+├── frontend/               # React Frontend Application
+│   ├── public/             # Static Assets & HTML Index
+│   ├── src/
+│   │   ├── App.js          # Main Component & UI Logic
+│   │   ├── App.css         # Styling & CSS Themes
+│   │   └── index.js        # React Entry Point
+│   └── package.json        # Frontend Dependencies
+│
+└── lostfound/              # Spring Boot Backend Application
+└── src/main/java/com/example/lostfound/
+├── controller/     # REST Endpoints (ItemController.java)
+├── model/          # JPA Entities (Item.java)
+├── repository/     # Data Access Layer (ItemRepository.java)
+└── LostfoundApplication.java # Spring Boot Entry Point
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## ✨ Key Features
 
-### Analyzing the Bundle Size
+* **Item Management:** Create, view, update, and resolve reports for lost and found items.
+* **Search & Filter:** Instantly filter listed items by keyword, location, or status.
+* **Multi-Language Support:** Localized interface options (English & Amharic).
+* **Responsive Dashboard UI:** Styled with CSS theme variables.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🛠 Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* **Frontend:** React, CSS3, HTML5, JavaScript (ES6+)
+* **Backend:** Java, Spring Boot, Spring Data JPA
+* **Database:** MySQL (XAMPP / phpMyAdmin)
+* **Version Control:** Git, GitHub
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🚀 Quick Setup & Running Locally
 
-### Deployment
+### Prerequisites
+* **JDK 17+**
+* **Node.js & npm**
+* **XAMPP / MySQL Server**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 1. Database Setup
+1. Start Apache & MySQL in XAMPP.
+2. Open phpMyAdmin (`http://localhost/phpmyadmin/`).
+3. Create a database named `lostandfound_db`.
 
-### `npm run build` fails to minify
+### 2. Backend Setup
+```bash
+# Navigate to the backend directory
+cd lostfound
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Run the Spring Boot application
+./mvnw spring-boot:run
+Backend runs on http://localhost:8081.
+
+3. Frontend Setup
+Bash
+# Open a new terminal and navigate to the frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the React app
+npm start
+Frontend runs on http://localhost:3000.
