@@ -1,0 +1,52 @@
+package com.example.lostfound.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "items")
+public class Item {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    private String location;
+
+    @Column(name = "contact_info")
+    private String contactInfo;
+
+    private String status;
+
+    public Item() {}
+
+    public Item(String title, String description, String location, String contactInfo, String status) {
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.contactInfo = contactInfo;
+        this.status = status;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+
+    public String getContactInfo() { return contactInfo; }
+    public void setContactInfo(String contactInfo) { this.contactInfo = contactInfo; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+}
