@@ -1,132 +1,107 @@
 # Lost and Found Web Application
 
-A full-stack web application designed to connect people who have lost personal belongings with individuals who have found them. The platform simplifies reporting, searching, and managing lost items within a community or organization.
+A full-stack web application built to connect individuals who have lost personal belongings with those who have found them. The system streamlines reporting, searching, and managing lost items within a community or institution.
 
 ---
 
 ## 📌 Purpose
-The main goal of this application is to reduce the stress and friction of searching for misplaced items. Instead of relying on physical bulletin boards or fragmented social media posts, users have a centralized platform to report lost items or log found belongings for quick matching.
+The application reduces the friction and stress of locating lost items. Instead of relying on manual notices or scattered social posts, users have a single centralized portal to log missing items, post found items, and coordinate returns efficiently.
 
 ---
 
-## 👥 Target Audience & Target Users
+## 👥 Target Users & Audience
 
-* **General Users / Community Members:** Anyone who has lost or found an item and wants to quickly log a report or search existing listings.
-* **Campus & Organization Administrators:** Staff or managers who oversee lost-and-found desks to manage incoming inventory, verify claims, and coordinate returns.
+* **General Community Members:** Anyone looking to report a misplaced item or publish details of a found object.
+* **Administrative Personnel:** Staff or campus desk managers who handle physical lost-and-found collections, verify item ownership, and update recovery statuses.
 
 ---
 
 ## 🏗 System Architecture
 
-The project follows a standard **Client-Server Architecture** decoupled into a frontend single-page application (SPA) and a backend REST API.
+The application uses a **Client-Server Architecture** decoupling the frontend user interface from the backend REST API:
 
 +-------------------------------------------------------+
 |                    React Frontend                     |
-|            (React Hooks, Axios / Fetch)               |
+|            (JavaScript, JSX, CSS3, HTML5)             |
 +-------------------------------------------------------+
 |
-| HTTP / REST API Requests
+| HTTP / REST API
 v
 +-------------------------------------------------------+
 |                  Spring Boot Backend                  |
-|  [ Controller Layer -> Service Layer -> Repository ]  |
+|          (Java, Spring Web, Spring Data JPA)          |
 +-------------------------------------------------------+
 |
-| JPA / Hibernate / JDBC
+| JDBC / Hibernate ORM
 v
 +-------------------------------------------------------+
-|                    MySQL Database                     |
+|                     MySQL Database                    |
 |                   (lostandfound_db)                   |
 +-------------------------------------------------------+
 
 
 ---
 
+## 💻 Languages & Tech Stack
+
+| Layer | Languages & Technologies |
+| :--- | :--- |
+| **Frontend** | JavaScript (ES6+), HTML5, CSS3, React.js |
+| **Backend** | Java 17+, Spring Boot, Spring Data JPA |
+| **Database** | MySQL (managed via XAMPP / phpMyAdmin) |
+| **Tooling** | Maven, npm, Git, GitHub |
+
+---
+
 ## 🗄 Database Schema
 
-The application utilizes MySQL (`lostandfound_db`) managed via phpMyAdmin. Below is the main entity schema used to track lost and found records:
+The system stores item information in the `items` table inside `lostandfound_db`:
 
-### `items` Table
-
-| Column Name   | Data Type     | Constraints                        | Description                                 |
-| :------------ | :------------ | :--------------------------------- | :------------------------------------------ |
-| `id`          | `BIGINT`      | `PRIMARY KEY`, `AUTO_INCREMENT`    | Unique identifier for each record          |
-| `title`       | `VARCHAR(255)`| `NOT NULL`                         | Item name (e.g., ID Card, Keys, Phone)      |
-| `description` | `TEXT`        | `NOT NULL`                         | Detailed description of the item            |
-| `location`    | `VARCHAR(255)`| `NOT NULL`                         | Location where item was lost/found          |
-| `contact_info`| `VARCHAR(255)`| `NOT NULL`                         | Contact details of the reporter             |
-| `status`      | `VARCHAR(50)` | `NOT NULL`                         | Record status: `LOST`, `FOUND`, `RESOLVED`  |
+| Column Name | Data Type | Key / Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `BIGINT` | Primary Key, Auto Increment | Unique record ID |
+| `title` | `VARCHAR(255)` | Not Null | Name of the lost or found item |
+| `description` | `TEXT` | Not Null | Detailed description |
+| `location` | `VARCHAR(255)` | Not Null | Place where item was lost or found |
+| `contact_info` | `VARCHAR(255)` | Not Null | Phone or email of reporter |
+| `status` | `VARCHAR(50)` | Not Null | `LOST`, `FOUND`, or `RESOLVED` |
 
 ---
 
 ## 📁 Repository Structure
 
-lostfound/
-├── frontend/               # React Frontend Application
-│   ├── public/             # Static Assets & HTML Index
-│   ├── src/
-│   │   ├── App.js          # Main Component & UI Logic
-│   │   ├── App.css         # Styling & CSS Themes
-│   │   └── index.js        # React Entry Point
-│   └── package.json        # Frontend Dependencies
-│
-└── lostfound/              # Spring Boot Backend Application
-└── src/main/java/com/example/lostfound/
-├── controller/     # REST Endpoints (ItemController.java)
-├── model/          # JPA Entities (Item.java)
-├── repository/     # Data Access Layer (ItemRepository.java)
-└── LostfoundApplication.java # Spring Boot Entry Point
+Lost-and-Found/
+├── frontend/               # React Frontend
+│   ├── public/             # Static Assets
+│   └── src/                # Components & UI Logic (App.js, App.css)
+├── lostfound/              # Spring Boot Backend
+│   └── src/main/java/      # Controller, Service & Entity Classes
+└── README.md               # Main Project Documentation
 
 
 ---
 
-## ✨ Key Features
-
-* **Item Management:** Create, view, update, and resolve reports for lost and found items.
-* **Search & Filter:** Instantly filter listed items by keyword, location, or status.
-* **Multi-Language Support:** Localized interface options (English & Amharic).
-* **Responsive Dashboard UI:** Styled with CSS theme variables.
-
----
-
-## 🛠 Tech Stack
-
-* **Frontend:** React, CSS3, HTML5, JavaScript (ES6+)
-* **Backend:** Java, Spring Boot, Spring Data JPA
-* **Database:** MySQL (XAMPP / phpMyAdmin)
-* **Version Control:** Git, GitHub
-
----
-
-## 🚀 Quick Setup & Running Locally
+## 🚀 Quick Setup & Installation
 
 ### Prerequisites
-* **JDK 17+**
+* **Java Development Kit (JDK 17+)**
 * **Node.js & npm**
-* **XAMPP / MySQL Server**
+* **XAMPP (MySQL Server)**
 
 ### 1. Database Setup
-1. Start Apache & MySQL in XAMPP.
+1. Start **MySQL** in XAMPP Control Panel.
 2. Open phpMyAdmin (`http://localhost/phpmyadmin/`).
 3. Create a database named `lostandfound_db`.
 
-### 2. Backend Setup
+### 2. Run Backend
 ```bash
-# Navigate to the backend directory
 cd lostfound
-
-# Run the Spring Boot application
 ./mvnw spring-boot:run
-Backend runs on http://localhost:8081.
+Backend API starts on http://localhost:8081.
 
-3. Frontend Setup
+3. Run Frontend
 Bash
-# Open a new terminal and navigate to the frontend directory
 cd frontend
-
-# Install dependencies
 npm install
-
-# Start the React app
 npm start
 Frontend runs on http://localhost:3000.
